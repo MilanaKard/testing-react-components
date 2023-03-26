@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useState, useEffect } from 'react';
 import { Card, CardProps } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { PopUp } from '../PopUp/PopUp';
@@ -11,10 +10,12 @@ export type Options = {
   species?: string;
   type?: string;
   gender?: 'female' | 'male' | 'genderless' | 'unknown' | '';
+  page: number;
 };
 
 type CardsContainerProps = {
   options: Options;
+  onRequest: (pageCount: number) => void;
 };
 
 type Data = {
@@ -27,140 +28,89 @@ type Data = {
   results: CardProps['data'][];
 };
 
-type CardsContainerState = {
-  data: Data;
-  isLoaded: boolean;
-  cardNumber: number;
-  isPopUpVisible: boolean;
-};
-class CardsContainer extends React.Component<CardsContainerProps, CardsContainerState> {
-  page: number;
-  error: JSX.Element | null;
-  constructor(props: CardsContainerProps) {
-    super(props);
-    this.state = {
-      data: { results: [] },
-      isLoaded: false,
-      cardNumber: 0,
-      isPopUpVisible: false,
-    };
-    this.handlePageClick = this.handlePageClick.bind(this);
-    this.handleCardClick = this.handleCardClick.bind(this);
-    this.page = 1;
-    this.error = null;
-  }
+const CardsContainer = ({ options, onRequest }: CardsContainerProps): JSX.Element => {
+  const [data, setData] = useState({ results: [] } as Data);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [cardNumber, setCardNumber] = useState(0);
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+  const [error, setError] = useState(null as JSX.Element | null);
 
-  componentDidMount() {
-    this.updateData();
-  }
+  useEffect(() => {
+    setIsLoaded(false);
 
-  async componentDidUpdate(prevProps: CardsContainerProps) {
-    if (this.props.options !== prevProps.options) {
-      this.setState({ isLoaded: false });
-      this.page = 1;
-      await this.updateData();
-    }
-  }
+    const fetchData = async () => {
+      const params = Object.entries(options)
+        .map(([key, value]) => (value ? `&${key}=${value}` : ''))
+        .reduce((prev, current) => prev + current, '');
+      try {
+        const res = await fetch(`https://rickandmortyapi.com/api/character/?${params}`);
 
-  async updateData() {
-    const params = Object.entries(this.props.options)
-      .map(([key, value]) => (value ? `&${key}=${value}` : ''))
-      .reduce((prev, current) => prev + current, '');
-    try {
-      const res = await fetch(
-        `https://rickandmortyapi.com/api/character/?page=${this.page}${params}`
-      );
-
-      const data = await res.json();
-      if (data.error) {
-        this.error = <div>No matching results.</div>;
-        this.setState({ isLoaded: true });
-        return;
+        const data = await res.json();
+        if (data.error) {
+          setError(<div>No matching results.</div>);
+          setIsLoaded(true);
+          onRequest(0);
+          return;
+        }
+        setError(null);
+        setData(data);
+        setIsLoaded(true);
+        onRequest(data.info?.pages);
+      } catch {
+        setError(<div>Failed to load data.</div>);
+        setIsLoaded(true);
+        onRequest(0);
       }
-      this.error = null;
-      this.setState({ data: data, isLoaded: true });
-    } catch {
-      this.error = <div>Failed to load data.</div>;
-      this.setState({ isLoaded: true });
-    }
-  }
+    };
+    fetchData();
+  }, [options]);
 
-  handlePageClick(data: { selected: number }) {
-    this.page = data.selected + 1;
-    this.updateData();
-  }
-
-  handleCardClick(e: React.MouseEvent) {
+  const handleCardClick = (e: React.MouseEvent) => {
     const card = e.currentTarget.closest('.card') as HTMLElement;
     const cardNumber = Number(card.dataset.num);
-    this.setState({ cardNumber: cardNumber, isPopUpVisible: true });
-  }
+    setCardNumber(cardNumber);
+    setIsPopUpVisible(true);
+  };
 
-  render() {
-    const { data, isLoaded, cardNumber, isPopUpVisible } = this.state;
-    return (
-      <>
-        {!isLoaded ? (
-          <Loader />
-        ) : (
-          this.error || (
-            <>
-              <div className="container">
-                {data.results[0]
-                  ? data.results.map((el, index) => {
-                      return (
-                        <Card
-                          data={el}
-                          key={el.id}
-                          index={index}
-                          onClick={this.handleCardClick}
-                          isDetailed={false}
-                        />
-                      );
-                    })
-                  : ''}
-              </div>
-
-              <ReactPaginate
-                previousLabel={'prev'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                pageCount={data.info?.pages || 1}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={3}
-                onPageChange={this.handlePageClick}
-                containerClassName={'pagination'}
-                pageClassName={'page-item'}
-                pageLinkClassName={'page-link'}
-                previousClassName={'page-item'}
-                previousLinkClassName={'page-link'}
-                nextClassName={'page-item'}
-                nextLinkClassName={'page-link'}
-                breakClassName={'page-item'}
-                breakLinkClassName={'page-link'}
-                activeClassName={'page-active'}
-                disabledClassName={'page-disabled'}
-              />
-            </>
-          )
+  return (
+    <>
+      {!isLoaded ? (
+        <Loader />
+      ) : (
+        error || (
+          <>
+            <div className="container">
+              {data.results.map((el, index) => {
+                return (
+                  <Card
+                    data={el}
+                    key={el.id}
+                    index={index}
+                    onClick={handleCardClick}
+                    isDetailed={false}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )
+      )}
+      <PopUp
+        isVisible={isPopUpVisible}
+        onClose={() => {
+          setIsPopUpVisible(false);
+        }}
+      >
+        {data.results.length && (
+          <Card
+            data={data.results[cardNumber]}
+            onClick={() => null}
+            index={cardNumber}
+            isDetailed={true}
+          />
         )}
-        <PopUp
-          isVisible={isPopUpVisible}
-          onClose={() => {
-            this.setState({ isPopUpVisible: false });
-          }}
-        >
-          {this.state.data.results.length && (
-            <Card
-              data={this.state.data.results[cardNumber]}
-              onClick={() => null}
-              index={cardNumber}
-              isDetailed={true}
-            />
-          )}
-        </PopUp>
-      </>
-    );
-  }
-}
+      </PopUp>
+    </>
+  );
+};
 export { CardsContainer };

@@ -22,7 +22,7 @@ test('submit button should be disabled at first and enabled after typing', funct
   expect(submitButtonElement).toHaveClass('active');
 });
 
-test('should show error message and disable submit button', function () {
+test('should show error message and disable submit button', async function () {
   render(<Form onSubmit={jest.fn()} />);
   const submitButtonElement = screen.getByRole('button', {
     name: /submit/i,
@@ -31,7 +31,7 @@ test('should show error message and disable submit button', function () {
     name: /vegan/i,
   }) as HTMLInputElement;
   userEvent.click(checkboxInputElement);
-  const errorMessageElement = screen.getByText(/if the dish is vegan/i);
+  const errorMessageElement = await screen.findByText(/if the dish is vegan/i);
   expect(errorMessageElement).toBeInTheDocument();
   expect(submitButtonElement).not.toHaveClass('active');
 });

@@ -22,6 +22,6 @@ test('should render a card if the form is filled correctly', async function () {
     name: /submit/i,
   }) as HTMLButtonElement;
   userEvent.click(submitButtonElement);
-  const titleElement = screen.getByRole('heading', { level: 2 });
+  const titleElement = await screen.findByRole('heading', { level: 2 });
   expect(titleElement.textContent).toBe('title');
 });

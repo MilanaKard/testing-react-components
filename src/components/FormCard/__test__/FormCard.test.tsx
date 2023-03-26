@@ -6,7 +6,7 @@ const cardData = {
   id: '1',
   imgUrl: 'https://images.unsplash.com/photo-1621341258668-b2bf005a9f97',
   title: 'Risotto',
-  additionalText: 'Сuisine: Italia',
+  cuisine: 'Italia',
   text: 'A rice dish cooked with broth until it reaches a creamy consistency. The broth can be derived from meat, fish, or vegetables. Many types of risotto contain butter, onion, white wine, and Parmigiano-Reggiano. It is one of the most common ways of cooking rice in Italy. Saffron was originally used for flavour and its signature yellow colour.',
   likeCount: 100,
   watchCount: 300,
@@ -15,7 +15,7 @@ const cardData = {
 test('should render text', () => {
   render(<FormCard data={cardData} />);
   const textElement = screen.getByText(/A rice dish/i);
-  const additionaltextElement = screen.getByText(/Сuisine: Italia/i);
+  const additionaltextElement = screen.getByText(/Italia/i);
   expect(textElement).toBeInTheDocument();
   expect(additionaltextElement).toBeInTheDocument();
 });

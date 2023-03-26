@@ -6,14 +6,14 @@ export type FormCardProps = {
     imgUrl: string;
     title: string;
     text: string;
-    additionalText: string;
-    watchCount: number;
-    likeCount: number;
+    cuisine: string;
+    watchCount?: number;
+    likeCount?: number;
     date?: string;
     isLike?: boolean;
     isVegan?: boolean;
     isVegetarian?: boolean;
-    [index: string]: string | boolean | number | undefined;
+    [index: string]: string | boolean | number | FileList | undefined;
   };
 };
 
@@ -22,7 +22,7 @@ export const FormCard = ({ data }: FormCardProps): JSX.Element => {
     imgUrl,
     title,
     text,
-    additionalText,
+    cuisine,
     watchCount,
     likeCount,
     date,
@@ -41,7 +41,7 @@ export const FormCard = ({ data }: FormCardProps): JSX.Element => {
       <div className="card-img" data-testid="image" style={{ backgroundImage: `url(${imgUrl})` }} />
       <div className="card-info">
         <h2 className="card-title">{title}</h2>
-        <p className="card-additional">{additionalText}</p>
+        <p className="card-additional">Cuisine: {cuisine}</p>
         {isVegetarian !== undefined && (
           <div>
             <p className="card-vegetarian">Vegetarian</p>
@@ -60,11 +60,11 @@ export const FormCard = ({ data }: FormCardProps): JSX.Element => {
       <div className="statistics">
         <div>
           <div className="heart-img" />
-          <div className="like-count">{likeCount}</div>
+          <div className="like-count">{likeCount || 0}</div>
         </div>
         <div>
           <div className="eye-img" />
-          <div className="watch-count">{watchCount}</div>
+          <div className="watch-count">{watchCount || 0}</div>
         </div>
       </div>
     </div>

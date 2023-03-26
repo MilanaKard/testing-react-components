@@ -11,7 +11,7 @@ const Layout = (): JSX.Element => {
       <main>
         <Outlet />
       </main>
-      <footer>2023</footer>
+      <footer>2022</footer>
     </>
   );
 };
