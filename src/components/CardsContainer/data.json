@@ -1,0 +1,56 @@
+[
+    {
+        "id": "ab10",
+        "imgUrl": "https://images.unsplash.com/photo-1621341258668-b2bf005a9f97",
+        "title": "Risotto",
+        "additionalText": "Сuisine: Italia",
+        "text": "A rice dish cooked with broth until it reaches a creamy consistency. The broth can be derived from meat, fish, or vegetables. Many types of risotto contain butter, onion, white wine, and Parmigiano-Reggiano. It is one of the most common ways of cooking rice in Italy. Saffron was originally used for flavour and its signature yellow colour.",
+        "likeCount": 100,
+        "watchCount": 300
+    },
+    {
+        "id": "ab11",
+        "imgUrl": "https://images.unsplash.com/photo-1607095097076-bf0221751ed6",
+        "title": "Wonton",
+        "additionalText": "Сuisine: China",
+        "text": "Each region of China has its own variations of wonton.The most common filling is ground pork and shrimp with a small amount of flour added as a binder. The mixture is seasoned with salt, spices, and often garlic or finely chopped green onion. Wontons are traditionally served in soup.",
+        "likeCount": 88,
+        "watchCount": 290
+    },
+    {
+        "id": "ab12",
+        "imgUrl": "https://images.unsplash.com/photo-1612477491914-a2f46ef8586e",
+        "title": "Quiche",
+        "additionalText": "Сuisine: France",
+        "text": "A tart consisting of pastry crust filled with savoury custard and pieces of cheese, meat, seafood or vegetables. The best-known variant is quiche Lorraine, which includes lardons or bacon. Quiche can be served hot or cold. It is popular worldwide.",
+        "likeCount": 90,
+        "watchCount": 260
+    },
+    {
+        "id": "ab13",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Som_tam_thai.JPG/800px-Som_tam_thai.JPG",
+        "title": "Som tam",
+        "additionalText": "Сuisine: Thailand",
+        "text": "A spicy salad made from shredded unripe papaya. The dish combines the five main basic tastes: sourness of the lime, the spiciness of the chili, saltness and savoriness of the fish sauce, and sweetness of palm sugar. The ingredients are mixed and pounded in a mortar.",
+        "likeCount": 190,
+        "watchCount": 350
+    },
+    {
+        "id": "ab14",
+        "imgUrl": "https://images.unsplash.com/photo-1623961990059-28356e226a77",
+        "title": "Paella",
+        "additionalText": "Сuisine: Spain",
+        "text": "A rice dishs cooked over an open fire, fueled by orange and pine branches along with pine cones. This produces an aromatic smoke which infuses the paella. Also, dining guests traditionally eat directly out of the pan instead of serving in plates.",
+        "likeCount": 150,
+        "watchCount": 300
+    },
+    {
+        "id": "ab15",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flickr_-_cyclonebill_-_Tabbouleh.jpg/1280px-Flickr_-_cyclonebill_-_Tabbouleh.jpg",
+        "title": "Tabbouleh",
+        "additionalText": "Сuisine: Arab",
+        "text": "A salad made mostly of finely chopped parsley, with tomatoes, mint, onion, bulgur (soaked, not cooked), and seasoned with olive oil, lemon juice, salt and sweet pepper. Some variations add lettuce, or use semolina instead of bulgur.",
+        "likeCount": 180,
+        "watchCount": 310
+    }
+]

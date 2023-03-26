@@ -1,0 +1,123 @@
+.card-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 2rem 4rem -1.4rem rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s;
+  @media (min-width: 800px) {
+    width: calc((100% - 3.5rem) / 2);
+  }
+  @media (min-width: 1200px) {
+    width: calc((100% - 3.5rem * 2) / 3);
+  }
+  @media (min-width: 1750px) {
+    width: calc((100% - 3.5rem * 3) / 4);
+  }
+  @media (min-width: 2200px) {
+    width: calc((100% - 3.5rem * 4) / 5);
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+      .card-img {
+        opacity: 1;
+      }
+    }
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-bottom: 8rem;
+    line-height: 1.5em;
+    overflow: hidden;
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .card-title {
+    font-size: 1.5em;
+    line-height: 1.1em;
+    color: #32325d;
+    margin: 0;
+    margin-bottom: 0.2em;
+  }
+
+  .card-img {
+    height: 20rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 6px 6px 0 0;
+    opacity: 0.9;
+  }
+
+  .card-additional {
+    font-style: italic;
+    margin: 0.9em 0;
+  }
+
+  .heart-img,
+  .eye-img,
+  .card-right,
+  .card-wrong {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .heart-img {
+    background-image: url('/assets/svg/heart.svg');
+  }
+
+  .eye-img {
+    background-image: url('/assets/svg/eye.svg');
+  }
+
+  .statistics {
+    display: flex;
+    position: absolute;
+    bottom: 3rem;
+    right: 2rem;
+    justify-content: flex-end;
+    column-gap: 4rem;
+  }
+
+  .statistics div {
+    display: flex;
+    column-gap: 6px;
+    align-items: center;
+  }
+
+  .card-date {
+    margin: 0;
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+  }
+
+  .card-right {
+    background-image: url('/assets/svg/circle-right.svg');
+  }
+  .card-wrong {
+    background-image: url('/assets/svg/circle-wrong.svg');
+  }
+  &.card-like {
+    background-color: #e0ffdd;
+  }
+  &.card-dislike {
+    background-color: #ffcccb;
+  }
+  .card-vegetarian,
+  .card-vegan {
+    margin: 0;
+    width: 9rem;
+  }
+}

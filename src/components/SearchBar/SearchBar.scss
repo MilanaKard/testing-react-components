@@ -1,0 +1,23 @@
+.search-bar-input {
+  box-sizing: border-box;
+  outline: 0;
+  margin: 0 0 6rem;
+  width: 100%;
+  height: 3rem;
+  padding: 14px 95px 22px 38px;
+  border-radius: 108px;
+  font-family: inherit;
+  border: 2px solid #bababa;
+  color: #4b4b4b;
+  font-size: 2.4rem;
+  background-color: #fafafa;
+  background-image: url('/assets/svg/Vector.svg');
+  background-size: 34px;
+  background-repeat: no-repeat;
+  background-position: calc(100vw - 150px) center;
+  @media (min-width: 1000px) {
+    width: 920px;
+    height: 5rem;
+    background-position: 836px center;
+  }
+}
